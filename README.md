@@ -46,7 +46,7 @@ python gui.py
 ### Application Interface
 
 1. **Browse Folder**: Click the "Browse" button to select the directory you want to search in.
-2. **File Extension**: Enter the file extension (e.g., `.txt`, `.zip`) in the provided input field.
+2. **File Extension**: Enter the file extension (e.g., `txt`, `zip`) in the provided input field.
 3. **Find Files**: Click the "Find Files" button to search for files with the specified extension.
 4. **File Operations**:
     - **Select All**: Click "Select All" to select all listed files.
@@ -59,10 +59,10 @@ python gui.py
 ### Screenshots
 
 #### GUI Interface
-![GUI Interface](DEMO/base-gui.png)
+<img src="DEMO/base-gui.png" alt="GUI Interface" width="400"/>
 
 #### After Searching for ZIP Files
-![Search Results](DEMO/on-action.png)
+<img src="DEMO/on-action.png" alt="Search Results" width="600"/>
 
 ## Project Structure
 
