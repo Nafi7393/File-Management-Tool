@@ -62,7 +62,7 @@ python gui.py
 <img src="DEMO/base-gui.png" alt="GUI Interface" width="400"/>
 
 #### After Searching for ZIP Files
-<img src="DEMO/on-action.png" alt="Search Results" width="600"/>
+![Search Results](DEMO/on-action.png)
 
 ## Project Structure
 
