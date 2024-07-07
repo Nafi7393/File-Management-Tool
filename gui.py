@@ -11,17 +11,14 @@ class FileManagementApp(QMainWindow):
     def __init__(self):
         super().__init__()
 
+        # Initialize instance variables for widgets
         self.folder_label = None
         self.folder_lineedit = None
         self.folder_browse_button = None
-
         self.extension_label = None
         self.extension_lineedit = None
-
         self.find_files_button = None
-
         self.file_listwidget = None
-
         self.select_all_button = None
         self.copy_button = None
         self.move_button = None
@@ -29,20 +26,22 @@ class FileManagementApp(QMainWindow):
         self.open_folder_button = None
         self.open_file_button = None
 
+        # Initial window dimensions and position
         self.pos_x = 200
         self.pos_y = 200
         self.width = 600
         self.height = 780
 
+        # Set window title and geometry
         self.setWindowTitle('File Management App')
         self.setGeometry(self.pos_x, self.pos_y, self.width, self.height)
 
+        # Central widget and layout
         self.central_widget = None
-
         self.initUI()
 
     def initUI(self):
-        # Widgets
+        # Widgets creation and layout setup
         self.folder_label = QLabel('Select Folder:')
         self.folder_lineedit = QLineEdit()
         self.folder_browse_button = QPushButton('Browse')
@@ -62,9 +61,8 @@ class FileManagementApp(QMainWindow):
         self.open_folder_button = QPushButton('Open File Location')
         self.open_file_button = QPushButton('Open File')
 
-        # Layout
+        # Layout management
         vbox = QVBoxLayout()
-
         hbox_folder = QHBoxLayout()
         hbox_folder.addWidget(self.folder_label)
         hbox_folder.addWidget(self.folder_lineedit)
@@ -86,16 +84,18 @@ class FileManagementApp(QMainWindow):
         vbox.addLayout(hbox_buttons)
 
         xbox_buttons = QHBoxLayout()
-        xbox_buttons.addWidget(self.delete_button)
         xbox_buttons.addWidget(self.open_folder_button)
         xbox_buttons.addWidget(self.open_file_button)
+        xbox_buttons.addWidget(self.delete_button)
+        self.delete_button.setStyleSheet("background-color: red; color: white;")
         vbox.addLayout(xbox_buttons)
 
+        # Set central widget and layout
         self.central_widget = QWidget()
         self.central_widget.setLayout(vbox)
         self.setCentralWidget(self.central_widget)
 
-        # Menu bar
+        # Menu bar setup
         menubar = self.menuBar()
         file_menu = menubar.addMenu('&File')
 
@@ -114,11 +114,17 @@ class FileManagementApp(QMainWindow):
         self.open_file_button.clicked.connect(self.open_file)
 
     def browse_folder(self):
+        """
+        Opens a file dialog to select a folder and sets the folder path in the QLineEdit widget.
+        """
         folder = QFileDialog.getExistingDirectory(self, 'Select Folder')
         if folder:
             self.folder_lineedit.setText(folder)
 
     def find_files(self):
+        """
+        Finds files matching the specified extension in the selected folder and displays them in the QListWidget.
+        """
         folder = self.folder_lineedit.text()
         extension = self.extension_lineedit.text()
 
@@ -133,9 +139,15 @@ class FileManagementApp(QMainWindow):
             self.file_listwidget.addItem(file_info['Path'])
 
     def select_all_files(self):
+        """
+        Selects all items in the QListWidget.
+        """
         self.file_listwidget.selectAll()
 
     def copy_files(self):
+        """
+        Copies selected files to a specified destination folder.
+        """
         selected_items = self.file_listwidget.selectedItems()
 
         if not selected_items:
@@ -153,6 +165,9 @@ class FileManagementApp(QMainWindow):
         QMessageBox.information(self, 'Success', 'Files copied successfully.')
 
     def move_files(self):
+        """
+        Moves selected files to a specified destination folder.
+        """
         selected_items = self.file_listwidget.selectedItems()
 
         if not selected_items:
@@ -170,6 +185,9 @@ class FileManagementApp(QMainWindow):
         QMessageBox.information(self, 'Success', 'Files moved successfully.')
 
     def delete_files(self):
+        """
+        Deletes selected files after confirming with the user.
+        """
         selected_items = self.file_listwidget.selectedItems()
 
         if not selected_items:
@@ -187,6 +205,9 @@ class FileManagementApp(QMainWindow):
             QMessageBox.information(self, 'Success', 'Files deleted successfully.')
 
     def open_file_location(self):
+        """
+        Opens the location of the first selected file in the file explorer.
+        """
         selected_items = self.file_listwidget.selectedItems()
 
         if not selected_items:
@@ -195,19 +216,20 @@ class FileManagementApp(QMainWindow):
 
         # Open file location for the first selected item
         file_path = selected_items[0].text()
-
         open_file_or_folder(file_path, file=False)
 
     def open_file(self):
+        """
+        Opens the selected file using the default application.
+        """
         selected_items = self.file_listwidget.selectedItems()
 
         if not selected_items:
-            QMessageBox.warning(self, 'Warning', 'Please select a file to open its location.')
+            QMessageBox.warning(self, 'Warning', 'Please select a file to open.')
             return
 
-        # Open file location for the first selected item
+        # Open file for the first selected item
         file_path = selected_items[0].text()
-
         open_file_or_folder(file_path, file=True)
 
 
